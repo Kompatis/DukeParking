@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-navbar>
+    <button menuToggle *ngIf="!selectedItem">
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Lot Details</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+ <div *ngIf="selectedItem" class="selection">
+    <b>{{selectedItem.title}}</b>
+    <ion-icon name="{{selectedItem.icon}}"></ion-icon>
+    <div>
+      This is where more information will be.
+    </div>
+    <div>
+      Depending on the scope of the app
+    </div>
+  </div>
+</ion-content>
