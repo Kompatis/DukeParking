@@ -1,0 +1,27 @@
+* first install Node in git Shell 
+
+>> npm install -g cordova ionic
+
+>> ionic -v	//check installation
+
+>> cordova -v  //same
+
+
+Now clone from the repository
+-https://github.com/Kompatis/DukeParking
+-
+
+
+>> ionic serve --lab	//must have browser open and be in the project directory
+
+//later you can use phonegap to test it on your phone
+
+
+
+Sites to see
+	http://ionicframework.com/getting-started/
+
+http://phonegap.com/getstarted/
+
+http://ionicframework.com/docs/v2/getting-started/tutorial/navigation/
+
