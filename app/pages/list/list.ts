@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {NavController, NavParams} from 'ionic-angular';
 import {ItemDetailsPage} from '../item-details/item-details';
+import {SQLite} from "ionic-native";
 
 
 @Component({
@@ -8,10 +9,22 @@ import {ItemDetailsPage} from '../item-details/item-details';
 })
 export class ListPage {
   selectedItem: any;
+  public database: SQLite;
   icons: string[];
   items: Array<{title: string, note: string, icon: string}>;
 
   constructor(public navCtrl: NavController, navParams: NavParams) {
+  //sqlite database test
+        this.database = new SQLite();
+        this.database.openDatabase({name: "data.db", location: 1}).then(() => {
+            this.refresh();
+        }, (error) => {
+            console.log("ERROR: ", error);
+        });
+
+        //database test
+        test();
+
     // If we navigated to this page, we will have an item available as a nav param
     this.selectedItem = navParams.get('item');
 
@@ -44,4 +57,12 @@ export class ListPage {
       item: item
     });
   }
+
+  public test() {
+        this.database.executeSql("SELECT * FROM PTX_UID", []).then((data) => {
+            console.log("OUTPUT: " + JSON.stringify(data));
+        }, (error) => {
+            console.log("ERROR: " + JSON.stringify(error));
+        });
+}
 }

@@ -1,8 +1,9 @@
 import {Component, ViewChild} from '@angular/core';
 import {ionicBootstrap, Platform, MenuController, Nav} from 'ionic-angular';
-import {StatusBar} from 'ionic-native';
 import {HelloIonicPage} from './pages/hello-ionic/hello-ionic';
 import {ListPage} from './pages/list/list';
+import {StatusBar, SQLite} from 'ionic-native';
+
 
 
 @Component({
@@ -20,7 +21,6 @@ class MyApp {
     public menu: MenuController
   ) {
     this.initializeApp();
-
     // set our app's pages
     this.pages = [
       { title: 'Welcome Page', component: HelloIonicPage },
@@ -29,11 +29,22 @@ class MyApp {
   }
 
   initializeApp() {
-    this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      StatusBar.styleDefault();
-    });
+  this.platform.ready().then(() => {
+            StatusBar.styleDefault();
+            let db = new SQLite();
+            db.openDatabase({
+                name: "data.db",
+                location: 1
+            }).then(() => {
+                db.executeSql("CREATE TABLE IF NOT EXISTS people (id INTEGER PRIMARY KEY AUTOINCREMENT, firstname TEXT, lastname TEXT)", {}).then((data) => {
+                    console.log("TABLE CREATED: ", data);
+                }, (error) => {
+                    console.error("Unable to execute sql", error);
+                })
+            }, (error) => {
+                console.error("Unable to open database", error);
+            });
+        });
   }
 
   openPage(page) {
